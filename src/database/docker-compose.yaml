@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: news_postgres
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    environment:
+      POSTGRES_DB: ${DB_NAME:-news_db}
+      POSTGRES_USER: ${DB_USER:-user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-root}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ../../.env
+
+volumes:
+  postgres_data:
+    name: postgres_data
